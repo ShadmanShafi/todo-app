@@ -1,24 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import BrowserRoutes from "./BrowserRoutes";
+import ContextStore from "./Context/ContextStore";
+
 
 function App() {
+  const [contextStore, setContextStore] = useState({
+    name: "",
+    todos: []
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ContextStore.Provider value={{contextStore, setContextStore}} >
+      <BrowserRoutes />
+    </ContextStore.Provider>
   );
 }
 
