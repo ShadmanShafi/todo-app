@@ -9,72 +9,89 @@ import BackButton from "./BackButton";
 export default function CreateTodo() {
   let navigate = useNavigate();
   const { contextStore, setContextStore } = useContext(ContextStore);
-  const [errors, setErrors] = useState([])
+  const [errors, setErrors] = useState([]);
   const [form, setForm] = useState({
     title: "",
-    description: ""
-  })
+    description: "",
+  });
   const onChangeFormValue = (e) => {
-    setForm({...form, [e.target.name]:e.target.value})
-  }
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
   const validate = () => {
-    const errors = []
-    for (const [key, value] of Object.entries(form)){
-      if(!(value.trim().length > 0)){
-        errors.push({msg: `${key} cannot be empty`})
+    const errors = [];
+    for (const [key, value] of Object.entries(form)) {
+      if (!(value.trim().length > 0)) {
+        errors.push({ msg: `${key} is required` });
       }
     }
-    if(errors.length > 0){
-      setErrors(errors)
-      return false
+    if (errors.length > 0) {
+      setErrors(errors);
+      return false;
     }
-    return true
-  }
+    return true;
+  };
   const onClickSubmit = () => {
-    if(validate()){
+    if (validate()) {
       const todo = {
         id: contextStore.todos.length + 1,
         title: form.title,
         description: form.description,
         checked: false,
-        createdAt: Date.now()
-      }
-      setContextStore({...contextStore, todos: [...contextStore.todos, todo]})
-      navigate("/dashboard")
+        createdAt: Date.now().toLocaleString("en-GB", { timeZone: "UTC" }),
+      };
+      setContextStore({
+        ...contextStore,
+        todos: [...contextStore.todos, todo],
+      });
+      navigate("/dashboard");
     }
-  }
-
-
+  };
 
   return (
     <>
-      <TopNav />
-      <BackButton />
-      <Footer />
-      <h4 className="dashboard-body">Create new Todo</h4>
-      
-        <div className="create-todo-body">
-          <h5 className="create-element">Title</h5>
-          <input
-            className="create-input"
-            placeholder="Enter title here"
-            value={form.title}
-            name="title"
-            onChange={onChangeFormValue}
-          ></input>
-          <h6 className="create-error create-element">Title is required</h6>
-          <h5 className="create-element">Description</h5>
-          <textarea
-            className="create-input create-description"
-            placeholder="Enter description here"
-            value={form.description}
-            name="description"
-            onChange={onChangeFormValue}
-          ></textarea>
-          <button className="submit-newtodo-btn" onClick={onClickSubmit}>Create</button>
-          {errors.map(error => <p>{error.msg}</p>)}
+      <div className="create">
+        <TopNav />
+        <BackButton />
+        <h4 className="create-title">Create new ToDo</h4>
+        <div className="create-body">
+          <div>
+            <h5 className="">Title</h5>
+          </div>
+          <div>
+            <input
+              className="create-title-input"
+              placeholder="Enter title here"
+              value={form.title}
+              name="title"
+              onChange={onChangeFormValue}
+            ></input>
+          </div>
+          <div>
+            <h5 className="">Description</h5>
+          </div>
+          <div>
+            <textarea
+              className="create-description-input"
+              placeholder="Enter description here"
+              value={form.description}
+              name="description"
+              onChange={onChangeFormValue}
+            ></textarea>
+          </div>
+
+          <div>
+            {errors.map((error) => (
+              <p className="create-error">{error.msg}</p>
+            ))}
+          </div>
+          <div>
+            <button className="create-btn" onClick={onClickSubmit}>
+              Create
+            </button>
+          </div>
         </div>
-      
+      </div>
+      <Footer />
     </>
   );
 }

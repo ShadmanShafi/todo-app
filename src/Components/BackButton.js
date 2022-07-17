@@ -10,11 +10,9 @@ export default function BackButton() {
 
   return (
     <>
-      <div>
-        <button className="create-new back-btn" onClick={handleBackBtn}>
-          ← Back
-        </button>
-      </div>
+      <button className="back-btn" onClick={handleBackBtn}>
+        ← Back
+      </button>
     </>
   );
 }

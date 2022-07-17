@@ -1,6 +1,9 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ContextStore from "../Context/ContextStore";
+import TopNav from "./TopNav";
+import Footer from "./Footer";
+import BackButton from "./BackButton";
 
 export default function Details() {
   const { contextStore, setContextStore } = useContext(ContextStore);
@@ -63,44 +66,71 @@ export default function Details() {
   };
   return (
     <>
-      <ul>
-        <li
-          style={{ backgroundColor: "gray", marginBottom: "6px" }}
-          key={todo.id}
-        >
-          <p>{todo.id}</p>
-          {editMode && !todo.checked ? (
-            <input
-              type="text"
-              name="title"
-              value={form.title}
-              onChange={onChangeFormData}
-            />
-          ) : (
-            <p className="padding-text">{todo.title}</p>
-          )}
-          {editMode && !todo.checked ? (
-            <input
-              type="text"
-              name="description"
-              value={form.description}
-              onChange={onChangeFormData}
-            />
-          ) : (
-            <p className="padding-date">{todo.description}</p>
-          )}
-          {!editMode && !todo.checked && <button onClick={onClickEdit}>edit</button>}
-          {editMode && !todo.checked && (
+      <div class="details">
+        <TopNav />
+        <BackButton />
+        <h4 className="create-title">Details of Selected Item</h4>
+        <li style={{ listStyle: "none" }} key={todo.id}>
+          <div className="details-body">
             <div>
-              <button onClick={onClickUpdate}>Update</button>
-              <button onClick={onClickCancel}>Cancel</button>
+              <p>ID: {todo.id}</p>
             </div>
-          )}
+            {editMode && !todo.checked ? (
+              <div>
+                <input
+                placeholder="Enter a new title"
+                  className="details-title-input"
+                  type="text"
+                  name="title"
+                  value={form.title}
+                  onChange={onChangeFormData}
+                />
+              </div>
+            ) : (
+              <div>
+                <p className="">Title: {todo.title}</p>
+              </div>
+            )}
+            {editMode && !todo.checked ? (
+              <div>
+                <input
+                placeholder="Enter a new description"
+                  className="details-description-input"
+                  type="text"
+                  name="description"
+                  value={form.description}
+                  onChange={onChangeFormData}
+                />
+              </div>
+            ) : (
+              <div>
+                <p className="">Description: {todo.description}</p>
+              </div>
+            )}
+            {!editMode && !todo.checked && (
+              <div>
+                <button className="details-edit" onClick={onClickEdit}>
+                  Edit
+                </button>
+              </div>
+            )}
+            {editMode && !todo.checked && (
+              <div>
+                <button className="details-update" onClick={onClickUpdate}>
+                  Update
+                </button>
+                <button className="details-cancel" onClick={onClickCancel}>
+                  Cancel
+                </button>
+              </div>
+            )}
+          </div>
         </li>
-      </ul>
-      {errors.map((error) => (
-        <p>{error.msg}</p>
-      ))}
+        {errors.map((error) => (
+          <p className="create-error details-error-padding">{error.msg}</p>
+        ))}
+      </div>
+      <Footer />
     </>
   );
 }

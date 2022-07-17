@@ -24,50 +24,68 @@ export const Dashboard = () => {
     vTodos[index].checked = value;
     setContextStore({ ...contextStore, todos: vTodos });
   };
+
   return (
     <>
-      <TopNav />
-      <Footer />
-      <div>
-        <h4>My ToDos</h4>
-        <button>Update</button>
-        <button onClick={onClickCreateNew}>Create new</button>
+      <div className="dashboard">
+        <TopNav />
+        <div className="dashboard-title">
+          <h4>My ToDos</h4>
+          <button className="dashboard-create-new" onClick={onClickCreateNew}>
+            Create new
+          </button>
+        </div>
+        <div className="dashboard-body">
+          {contextStore.todos.length > 0 ? (
+            <ul>
+              {contextStore.todos.map((todo) => (
+                <li className="dashboard-list-item" key={todo.id}>
+                  <div style={{ display: "flex", gap: "30px" }}>
+                    <p>{todo.id}</p>
+                    <p
+                      style={{
+                        fontSize: "15px",
+                        cursor: "pointer",
+                      }}
+                      className={todo.checked ? "strikethrough" : ""}
+                      onClick={() => {
+                        onClickTodoItem(todo.id);
+                      }}
+                    >
+                      {todo.title}
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "12px",
+                        background: "none",
+                        border: "none",
+                        color: "#239eea",
+                        fontSize: "11px",
+                        fontStyle: "italic",
+                      }}
+                    >
+                      Click to view Description and Edit
+                    </p>
+                  </div>
+                  <div style={{ display: "flex", gap: "30px" }}>
+                    <p className="padding-date">CurrentDate</p>
+                    <input
+                      type={"checkbox"}
+                      checked={todo.checked}
+                      onChange={(e) => {
+                        onChangeCheckBox(todo.id, e.target.checked);
+                      }}
+                    />
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <h4 className="dashboard-no-todo-items">You have 0 Todos</h4>
+          )}
+        </div>
       </div>
-
-      {contextStore.todos.length > 0 ? (
-        <ul>
-          {contextStore.todos.map((todo) => (
-            <li
-              style={{ backgroundColor: "gray", marginBottom: "2px" }}
-              key={todo.id}
-            >
-              <p>{todo.id}</p>
-              <p
-                className={
-                    todo.checked ? "strikethrough" : ""
-                }
-                onClick={() => {
-                  onClickTodoItem(todo.id);
-                }}
-                style={{ cursor: "pointer" }}
-              >
-                {todo.title}
-              </p>
-              <p className="padding-date">currentDate</p>
-              <p className="padding-box">checkBox</p>
-              <input
-                type={"checkbox"}
-                checked={todo.checked}
-                onChange={(e) => {
-                  onChangeCheckBox(todo.id, e.target.checked);
-                }}
-              />
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <h4 className="noTodos">You have 0 Todos</h4>
-      )}
+      <Footer />
     </>
   );
 };
