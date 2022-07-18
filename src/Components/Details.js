@@ -58,6 +58,7 @@ export default function Details() {
       vTodos[index].title = form.title;
       vTodos[index].description = form.description;
       setContextStore({ ...contextStore, todos: vTodos });
+      localStorage.setItem("todos", JSON.stringify([...contextStore.todos]));
       navigate("/dashboard");
     }
   };

@@ -21,7 +21,7 @@ export const Home = () => {
   const onClickSubmit = () => {
     if (validate()) {
       setContextStore({ ...contextStore, name: form.name });
-      localStorage.setItem("user", form.name );
+      localStorage.setItem("user", form.name);
       navigate("/dashboard");
     }
   };

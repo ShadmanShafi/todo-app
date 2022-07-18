@@ -49,7 +49,10 @@ export default function CreateTodo() {
         ...contextStore,
         todos: [...contextStore.todos, todo],
       });
-      localStorage.setItem("todos", JSON.stringify([...contextStore.todos, todo]));
+      localStorage.setItem(
+        "todos",
+        JSON.stringify([...contextStore.todos, todo])
+      );
       navigate("/dashboard");
     }
   };

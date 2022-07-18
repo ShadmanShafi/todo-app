@@ -7,6 +7,7 @@ function App() {
   const [contextStore, setContextStore] = useState({
     name: `${localStorage.getItem(`user`)}`,
     todos: JSON.parse(localStorage.getItem("todos")),
+    //
   });
   return (
     <ContextStore.Provider value={{ contextStore, setContextStore }}>

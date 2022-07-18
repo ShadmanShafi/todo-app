@@ -1,11 +1,17 @@
 import "../App.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ContextStore from "../Context/ContextStore";
 
 export default function TopNav() {
   let navigate = useNavigate();
   const { contextStore, setContextStore } = useContext(ContextStore);
+
+  useEffect(() => {
+    if (!contextStore.name) {
+      navigate("/");
+    }
+  }, []);
 
   function handleLogout() {
     setContextStore({ name: "", todos: [] });

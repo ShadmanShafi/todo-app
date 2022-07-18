@@ -7,11 +7,7 @@ import Footer from "./Footer";
 export const Dashboard = () => {
   const navigate = useNavigate();
   const { contextStore, setContextStore } = useContext(ContextStore);
-  useEffect(() => {
-    if (!contextStore.name) {
-      navigate("/");
-    }
-  }, []);
+
   const onClickCreateNew = () => {
     navigate("/create");
   };
@@ -23,7 +19,6 @@ export const Dashboard = () => {
     let index = vTodos.findIndex((todo) => parseInt(todo.id) === parseInt(id));
     vTodos[index].checked = value;
     setContextStore({ ...contextStore, todos: vTodos });
-    // localStorage.setItem("todos", JSON.stringify([...contextStore.todos]));
     localStorage.setItem("todos", JSON.stringify([...contextStore.todos]));
   };
 
