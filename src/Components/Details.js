@@ -78,7 +78,7 @@ export default function Details() {
             {editMode && !todo.checked ? (
               <div>
                 <input
-                placeholder="Enter a new title"
+                  placeholder="Enter a new title"
                   className="details-title-input"
                   type="text"
                   name="title"
@@ -94,7 +94,7 @@ export default function Details() {
             {editMode && !todo.checked ? (
               <div>
                 <input
-                placeholder="Enter a new description"
+                  placeholder="Enter a new description"
                   className="details-description-input"
                   type="text"
                   name="description"

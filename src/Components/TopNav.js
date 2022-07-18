@@ -9,6 +9,7 @@ export default function TopNav() {
 
   function handleLogout() {
     setContextStore({ name: "", todos: [] });
+    localStorage.setItem("user", "");
     navigate("/");
   }
 

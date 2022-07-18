@@ -21,6 +21,7 @@ export const Home = () => {
   const onClickSubmit = () => {
     if (validate()) {
       setContextStore({ ...contextStore, name: form.name });
+      localStorage.setItem("user", form.name );
       navigate("/dashboard");
     }
   };
@@ -38,7 +39,9 @@ export const Home = () => {
       {errors.map((error) => (
         <div class="home-error-alert">{error.msg}</div>
       ))}
-      <button class="home-next-btn" onClick={onClickSubmit}>Next</button>
+      <button class="home-next-btn" onClick={onClickSubmit}>
+        Next
+      </button>
     </div>
   );
 };

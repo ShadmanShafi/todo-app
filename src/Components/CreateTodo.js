@@ -33,7 +33,9 @@ export default function CreateTodo() {
   const onClickSubmit = () => {
     if (validate()) {
       const current = new Date();
-      const date = `${current.getDate()} ${current.toLocaleString('default', { month: 'short' })}, ${current.getFullYear()}`;
+      const date = `${current.getDate()} ${current.toLocaleString("default", {
+        month: "short",
+      })}, ${current.getFullYear()}`;
 
       const todo = {
         id: contextStore.todos.length + 1,
@@ -47,6 +49,7 @@ export default function CreateTodo() {
         ...contextStore,
         todos: [...contextStore.todos, todo],
       });
+      localStorage.setItem("todos", JSON.stringify([...contextStore.todos, todo]));
       navigate("/dashboard");
     }
   };

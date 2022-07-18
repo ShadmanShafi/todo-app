@@ -23,6 +23,8 @@ export const Dashboard = () => {
     let index = vTodos.findIndex((todo) => parseInt(todo.id) === parseInt(id));
     vTodos[index].checked = value;
     setContextStore({ ...contextStore, todos: vTodos });
+    // localStorage.setItem("todos", JSON.stringify([...contextStore.todos]));
+    localStorage.setItem("todos", JSON.stringify([...contextStore.todos]));
   };
 
   return (
@@ -55,7 +57,6 @@ export const Dashboard = () => {
                     >
                       {todo.title}
                     </p>
-                    
                   </div>
                   <div style={{ display: "flex", gap: "30px" }}>
                     <p className="date">{todo.dateTime}</p>
