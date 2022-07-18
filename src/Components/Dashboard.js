@@ -44,31 +44,21 @@ export const Dashboard = () => {
                     <p>{todo.id}</p>
                     <p
                       style={{
-                        fontSize: "15px",
+                        fontSize: "16px",
                         cursor: "pointer",
+                        fontStyle: "bold",
                       }}
-                      className={todo.checked ? "strikethrough" : ""}
+                      className={todo.checked ? "strikethrough" : "unchecked"}
                       onClick={() => {
                         onClickTodoItem(todo.id);
                       }}
                     >
                       {todo.title}
                     </p>
-                    <p
-                      style={{
-                        fontSize: "12px",
-                        background: "none",
-                        border: "none",
-                        color: "#239eea",
-                        fontSize: "11px",
-                        fontStyle: "italic",
-                      }}
-                    >
-                      Click to view Description and Edit
-                    </p>
+                    
                   </div>
                   <div style={{ display: "flex", gap: "30px" }}>
-                    <p className="padding-date">CurrentDate</p>
+                    <p className="date">{todo.dateTime}</p>
                     <input
                       type={"checkbox"}
                       checked={todo.checked}

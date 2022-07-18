@@ -91,6 +91,18 @@
   justify-content: space-between;
 }
 
+.unchecked {
+  color: #239eea;
+  text-decoration: underline;
+}
+
+.date {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-right: 80px;
+  color: rgb(125, 125, 125);
+  font-size: 13px;
+}
+
 .strikethrough {
   text-decoration: line-through;
 }

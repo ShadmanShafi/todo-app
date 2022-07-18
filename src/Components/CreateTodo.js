@@ -32,13 +32,17 @@ export default function CreateTodo() {
   };
   const onClickSubmit = () => {
     if (validate()) {
+      const current = new Date();
+      const date = `${current.getDate()} ${current.toLocaleString('default', { month: 'short' })}, ${current.getFullYear()}`;
+
       const todo = {
         id: contextStore.todos.length + 1,
         title: form.title,
         description: form.description,
         checked: false,
-        createdAt: Date.now().toLocaleString("en-GB", { timeZone: "UTC" }),
+        dateTime: date,
       };
+      console.log(date);
       setContextStore({
         ...contextStore,
         todos: [...contextStore.todos, todo],
