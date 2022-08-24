@@ -7,11 +7,9 @@ import { logout } from "../Redux/User/actions";
 
 export default function TopNav() {
   let navigate = useNavigate();
-  //const { contextStore, setContextStore } = useContext(ContextStore);
   const user = useSelector((state) => state.users);
   const dispatch = useDispatch();
 
-  //PROTECTIVE ROUTES NOT WORKING
   useEffect(() => {
     if (!user.name) {
       navigate("/");
