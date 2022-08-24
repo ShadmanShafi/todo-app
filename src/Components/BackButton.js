@@ -5,7 +5,7 @@ export default function BackButton() {
   let navigate = useNavigate();
 
   function handleBackBtn() {
-    navigate("/dashboard");
+    navigate(-1);
   }
 
   return (
