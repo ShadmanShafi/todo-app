@@ -60,6 +60,7 @@ export const Dashboard = () => {
                       checked={todo.checked}
                       onChange={(e) => {
                         onChangeCheckBox(todo.id, e.target.checked);
+            
                       }}
                     />
                   </div>

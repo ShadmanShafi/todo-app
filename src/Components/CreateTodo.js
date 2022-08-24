@@ -30,6 +30,7 @@ export default function CreateTodo() {
     }
     return true;
   };
+  
   const onClickSubmit = () => {
     if (validate()) {
       const current = new Date();
