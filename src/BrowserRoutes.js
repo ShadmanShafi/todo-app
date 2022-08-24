@@ -1,9 +1,8 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CreateTodo from "./Components/CreateTodo";
-import { Dashboard } from "./Components/Dashboard";
+import Dashboard from "./Components/Dashboard";
 import Details from "./Components/Details";
-import { Home } from "./Components/Home";
+import Home from "./Components/Home";
 
 export default function () {
   return (

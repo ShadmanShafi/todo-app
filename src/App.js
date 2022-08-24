@@ -1,18 +1,13 @@
-import { useState } from "react";
+import BrowserRoutes from "./BrowserRoutes"
+import { Provider } from "react-redux";
+import store from "./Redux/store";
 import "./App.css";
-import BrowserRoutes from "./BrowserRoutes";
-import ContextStore from "./Context/ContextStore";
 
 function App() {
-  const [contextStore, setContextStore] = useState({
-    name: `${localStorage.getItem(`user`)}`,
-    todos: JSON.parse(localStorage.getItem("todos")),
-    //
-  });
   return (
-    <ContextStore.Provider value={{ contextStore, setContextStore }}>
+    <Provider store={store}>
       <BrowserRoutes />
-    </ContextStore.Provider>
+    </Provider>
   );
 }
 

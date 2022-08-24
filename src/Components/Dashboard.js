@@ -1,12 +1,15 @@
-import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ContextStore from "../Context/ContextStore";
+import { useSelector, useDispatch } from "react-redux";
 import TopNav from "./TopNav";
 import Footer from "./Footer";
+import { todoCheckedToggle } from "../Redux/Todos/actions"
 
-export const Dashboard = () => {
+export default function Dashboard() {
   const navigate = useNavigate();
-  const { contextStore, setContextStore } = useContext(ContextStore);
+  const todos = useSelector((state) => state.todos);
+  const dispatch = useDispatch();
+
+  console.log(todos);
 
   const onClickCreateNew = () => {
     navigate("/create");
@@ -14,12 +17,10 @@ export const Dashboard = () => {
   const onClickTodoItem = (id) => {
     navigate(`/todoitem/${id}`);
   };
+
   const onChangeCheckBox = (id, value) => {
-    let vTodos = contextStore.todos;
-    let index = vTodos.findIndex((todo) => parseInt(todo.id) === parseInt(id));
-    vTodos[index].checked = value;
-    setContextStore({ ...contextStore, todos: vTodos });
-    localStorage.setItem("todos", JSON.stringify([...contextStore.todos]));
+    dispatch(todoCheckedToggle(id, value));
+    // localStorage.setItem("todos", JSON.stringify([...contextStore.todos]));
   };
 
   return (
@@ -33,19 +34,21 @@ export const Dashboard = () => {
           </button>
         </div>
         <div className="dashboard-body">
-          {contextStore.todos.length > 0 ? (
+          {todos.length > 1 ? (
             <ul>
-              {contextStore.todos.map((todo) => (
+              {todos.map((todo) => (
                 <li className="dashboard-list-item" key={todo.id}>
                   <div style={{ display: "flex", gap: "30px" }}>
-                    <p>{todo.id}</p>
+                    <p>{`${todo.id}.`}</p>
                     <p
                       style={{
                         fontSize: "16px",
                         cursor: "pointer",
                         fontStyle: "bold",
                       }}
-                      className={todo.checked ? "strikethrough" : "unchecked"}
+                      className={
+                        todo.checked ? "strikethrough" : "unchecked"
+                      }
                       onClick={() => {
                         onClickTodoItem(todo.id);
                       }}
@@ -54,13 +57,12 @@ export const Dashboard = () => {
                     </p>
                   </div>
                   <div style={{ display: "flex", gap: "30px" }}>
-                    <p className="date">{todo.dateTime}</p>
+                    <p className="date">{todo.date}</p>
                     <input
                       type={"checkbox"}
                       checked={todo.checked}
                       onChange={(e) => {
                         onChangeCheckBox(todo.id, e.target.checked);
-            
                       }}
                     />
                   </div>
@@ -75,4 +77,4 @@ export const Dashboard = () => {
       <Footer />
     </>
   );
-};
+}

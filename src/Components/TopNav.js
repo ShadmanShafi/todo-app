@@ -1,20 +1,26 @@
 import "../App.css";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ContextStore from "../Context/ContextStore";
+import { useSelector, useDispatch } from "react-redux";
+import { todoLogout } from "../Redux/Todos/actions";
+import { logout } from "../Redux/User/actions";
 
 export default function TopNav() {
   let navigate = useNavigate();
-  const { contextStore, setContextStore } = useContext(ContextStore);
+  //const { contextStore, setContextStore } = useContext(ContextStore);
+  const user = useSelector((state) => state.users);
+  const dispatch = useDispatch();
 
+  //PROTECTIVE ROUTES NOT WORKING
   useEffect(() => {
-    if (!contextStore.name) {
+    if (!user.name) {
       navigate("/");
     }
   }, []);
 
   function handleLogout() {
-    setContextStore({ name: "", todos: [] });
+    dispatch(todoLogout());
+    dispatch(logout());
     localStorage.setItem("user", "");
     navigate("/");
   }
@@ -25,7 +31,7 @@ export default function TopNav() {
         <h4>Simple ToDo</h4>
       </div>
       <div className="top-nav-right">
-        <h4 className="">{contextStore.name}</h4>
+        <h4 className="">{user.name}</h4>
         <button className="top-nav-logout" onClick={handleLogout}>
           Log out
         </button>
